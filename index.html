@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Site-Checker</title>
+    </head>
+    <body>
+        <div id="stamp">STAMP</div>
+    </body>
+    <script type="text/javascript">
+       var httpRequest;
+        if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
+            httpRequest = new XMLHttpRequest();
+        } else if (window.ActiveXObject) { // IE 6 and older
+            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } 
+        httpRequest.onreadystatechange = function(){
+            document.getElementById("stamp").innerHTML = httpRequest.responseText;
+        }
+        
+        function getTime(){
+            httpRequest.open('GET', "/status", true);
+            httpRequest.send(null);
+            setTimeout(getTime, 2000);// TODO: Change this value. Refresh Page, every 10 seconds
+        }
+        getTime();
+    </script>
+</html>
